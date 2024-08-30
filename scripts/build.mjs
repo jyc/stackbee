@@ -8,8 +8,8 @@ import { sassPlugin, postcssModules } from "esbuild-sass-plugin";
 const BASE_PATH = "src";
 const ENTRY_POINTS = ["src/embed.ts"];
 
-const debug = ["true", "1", undefined].indexOf(process.env.DEBUG) !== -1;
-const ignoreConfig = ["true", "1", undefined].indexOf(process.env.IGNORE_CONFIG) !== -1;
+const debug = ["true", "1"].indexOf(process.env.DEBUG) !== -1;
+const ignoreConfig = ["true", "1"].indexOf(process.env.IGNORE_CONFIG) !== -1;
 const minify = ["true", "1"].indexOf(process.env.MINIFY) !== -1;
 const watch = ["true", "1"].indexOf(process.env.WATCH) !== -1;
 
