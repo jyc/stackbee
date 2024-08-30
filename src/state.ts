@@ -202,7 +202,7 @@ Write "MATCH: X" if (X) matches the pattern or "MATCH: NONE" if no sequences mat
     charlie: [
       {
         role: "user",
-        content: `Does all of the following number sequences follow this pattern?
+        content: `Do all of the following number sequences follow this pattern?
 The first {{SEED_LEN}} terms of each sequence are arbitrary; the subsequent terms follow a pattern.
 Write out your reasoning.
 At the end, write "ANSWER: YES" or "ANSWER: NO".
