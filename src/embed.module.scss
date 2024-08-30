@@ -1,0 +1,493 @@
+@layer base, theme, layout, utilities;
+
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+
+// Equivalent to $gray-300 at 25% opacity on white.
+$gray-300-25a-white: rgba(71.4, 86.7, 111.18, 0.25);
+
+$sky-50: #f0f9ff;
+$sky-100: #e0f2fe;
+$sky-200: #bae6fd;
+$sky-300: #93c5fd;
+$sky-400: #38bdf8;
+
+$red-50: #fef2f2;
+$red-100: #fee2e2;
+$red-600: #dc2626;
+
+$orange-200: #fed7aa;
+$fuchsia-200: #f5d0fe;
+
+$green-200: #bbf7d0;
+$green-600: #16a34a;
+
+$input-raised-shadow: 0px 2px 0px $gray-300-25a-white;
+$input-lowered-shadow: inset 0px 2px 0px var(--lowered-color);
+$input-focused-shadow: 0px 0px 0px 2px $sky-400;
+
+$done-color: $gray-300;
+$error-color: $red-600;
+
+$border-radius: 6px;
+$gap: 0.5rem;
+
+@layer base {
+  .embed {
+    // Simple base stylesheet from https://fvsch.com/base-stylesheet
+    margin: 0;
+    padding: 0;
+    font-size: 100%;
+    line-height: 1.5;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 1em 0 0.5em;
+      line-height: 1.25;
+    }
+    h1 {
+      font-size: 2em;
+    }
+    h2 {
+      font-size: 1.5em;
+    }
+    h3 {
+      font-size: 1.2em;
+    }
+    ul,
+    ol {
+      margin: 1em 0;
+      padding-left: 40px;
+      ul,
+      ol {
+        // Don't add margin to nested lists.
+        margin: 0;
+      }
+    }
+    p,
+    figure {
+      margin: 1em 0;
+    }
+    a img {
+      border: none;
+    }
+    sup,
+    sub {
+      line-height: 0;
+    }
+    // End base stylesheet
+  }
+}
+
+@layer theme {
+  .embed {
+    line-height: 1;
+  }
+
+  .button {
+    --initial-color: black;
+    --color: white;
+    --hover-color: #{$gray-800};
+    --active-color: #{$gray-700};
+    --disabled-color: #{$gray-400};
+    --lowered-color: #{$gray-600};
+
+    font-size: 100%;
+    background-color: var(--initial-color);
+    border-radius: $border-radius;
+    border: 1.5px solid black;
+    box-shadow: $input-raised-shadow;
+    color: var(--color);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    padding: 3px 5px; // calc($gap - $border-width);
+    user-select: none;
+    width: max-content;
+
+    &:hover {
+      border-color: black;
+      background-color: var(--hover-color);
+    }
+    &:active {
+      border-color: black;
+      background-color: var(--active-color);
+    }
+    &:disabled {
+      outline: none;
+      border-color: black;
+      box-shadow: none;
+      color: var(--disabled-color);
+      cursor: not-allowed;
+    }
+
+    // Raise the button slightly above the baseline so the shadow makes it look
+    // like it's extruded. The inset shadow for text inputs is supposed to make
+    // them look like they are recessed.
+    margin-top: -1px;
+    margin-bottom: 1px;
+
+    // Defaults to 2px in Safari for some reason.
+    margin-left: 0;
+    margin-right: 0;
+
+    &:active,
+    &:disabled {
+      // Transforming causes WebKit/Blink to shift the icons in x, which looks bad.
+      // transform: translateY(2px);
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    &:active {
+      box-shadow: $input-lowered-shadow;
+    }
+  }
+
+  .lightButton {
+    @extend .button;
+    --initial-color: white;
+    --color: black;
+    --hover-color: #{$gray-200};
+    --active-color: #{$gray-100};
+    --disabled-color: #{$gray-200};
+    --lowered-color: #{$gray-300-25a-white};
+  }
+
+  .embed {
+    /* Rounded borders based on https://stackoverflow.com/a/11273086 */
+    table {
+      --alternate-color: #fdfdfd;
+      --border-color: #ededed;
+      --header-color: #f8f8f8;
+
+      border: 1px solid var(--border-color);
+      border-collapse: separate;
+      border-left: 0;
+      border-radius: 4px;
+      border-spacing: 0px;
+
+      tr,
+      th,
+      td {
+        border: none;
+      }
+      thead {
+        font-family: var(--font-sans);
+        display: table-header-group;
+        vertical-align: middle;
+        border-color: inherit;
+        border-collapse: separate;
+        background-color: var(--header-color);
+        text-align: center;
+      }
+      tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+      }
+      th,
+      td {
+        padding: 0.25em 0.5em;
+        text-align: left;
+        vertical-align: middle;
+        border-left: 1px solid var(--border-color);
+      }
+      th {
+        text-align: center;
+        font-weight: var(--font-weight-medium);
+      }
+      td {
+        border-top: 1px solid var(--border-color);
+      }
+      thead:first-child tr:first-child th:first-child,
+      tbody:first-child tr:first-child td:first-child {
+        border-radius: 4px 0 0 0;
+      }
+      thead:last-child tr:last-child th:first-child,
+      tbody:last-child tr:last-child td:first-child {
+        border-radius: 0 0 0 4px;
+      }
+
+      tr:nth-child(even) {
+        background-color: var(--alternate-color);
+      }
+    }
+
+    details summary::-webkit-details-marker {
+      // `display: inline` hides the marker in every browser except Safari.
+      display: none !important;
+    }
+
+    details {
+      summary {
+        display: inline;
+      }
+
+      summary::after {
+        margin-left: 0.5em;
+        font-size: 0.8em;
+        color: $gray-500;
+        cursor: pointer;
+        font-family: var(--font-sans);
+      }
+
+      &:not([open]) summary::after {
+        content: "[expand]";
+      }
+
+      &[open] summary::after {
+        content: "[collapse]";
+      }
+    }
+
+    strong {
+      font-weight: var(--font-weight-medium);
+    }
+
+    ul,
+    ol {
+      margin: 0;
+      padding-left: 1.25em;
+      width: calc(min(max-content, 100%));
+
+      // For some reason, the list items under Charlie end up styled with a
+      // different left-padding in Safari. I can't be bothered.
+
+      li + li {
+        margin-top: 0.25em;
+      }
+    }
+  }
+}
+
+@layer layout {
+  .embed {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+    font-family: var(--font-sans);
+  }
+
+  .rowLabel {
+    font-weight: var(--font-weight-medium);
+
+    &:after {
+      content: ":";
+    }
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .error {
+    background-color: $red-50;
+    border-radius: $border-radius;
+    padding: 0.25em;
+    //color: $error-color;
+  }
+
+  .programUnparsed,
+  .details pre {
+    font-family: var(--font-mono);
+    background-color: #fafafa;
+    border-radius: $border-radius;
+  }
+
+  .programUnparsed {
+    padding: 0px 4px;
+  }
+
+  .details pre {
+    margin: 0.5em 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 0.25em;
+  }
+
+  .trace,
+  .symTrace {
+    width: max-content;
+    td.symStack {
+    }
+    td.opsTrace {
+      font-family: var(--font-mono);
+    }
+  }
+
+  .symTrace {
+    margin-top: 0.5em;
+  }
+
+  .symStack {
+  }
+
+  .settings,
+  .description {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+  }
+
+  .sequence {
+    padding: 0 0.25em;
+    margin-right: 0.5em;
+    width: max-content;
+    .sequent:not(:last-child) {
+      padding-right: 0.5ch;
+    }
+  }
+
+  .correct {
+    border-radius: $border-radius;
+    background-color: $green-200;
+  }
+
+  .robot {
+    display: inline-flex;
+    align-items: baseline;
+    border-radius: $border-radius;
+    gap: 2px;
+    padding: 0px 4px;
+    font-size: 0.9em;
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-mono);
+    .robotIcon {
+      position: relative;
+      margin-top: -3px;
+      top: 3px;
+    }
+  }
+
+  .robotList {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 0.5ch;
+  }
+
+  .choices {
+    // This would be very nice, but Safari doesn't support it.
+    //li {
+    //  counter-increment: list;
+    //  &::marker {
+    //    content: "(" counter(list, upper-alpha) ")\a0";
+    //  }
+    //}
+    //padding-left: 1.6em;
+    list-style-type: none;
+    padding-left: 0;
+    li {
+      height: 1.1em;
+      display: flex;
+      align-items: center;
+    }
+
+    .sequenceIdx {
+      min-width: 1.5em;
+    }
+  }
+
+  .pattern {
+    font-family: var(--font-mono);
+  }
+
+  .wrongIcon,
+  .rightIcon,
+  .loadingIcon {
+    position: relative;
+    bottom: -3px;
+    margin-right: 0.5ch;
+  }
+
+  .wrongIcon {
+    color: $red-600;
+  }
+
+  .rightIcon {
+    color: $green-600;
+  }
+
+  .Alice {
+    background-color: $sky-200;
+  }
+
+  .Bob {
+    background-color: $orange-200;
+  }
+
+  .Charlie {
+    background-color: $fuchsia-200;
+  }
+
+  .settingsInput {
+    font-family: var(--font-mono);
+    font-size: 1em;
+    width: 100%;
+    height: 50vh;
+  }
+
+  .settings {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+  }
+
+  .row {
+    display: flex !important;
+    flex-direction: row;
+    gap: $gap;
+    align-items: center;
+  }
+
+  .textRow {
+    @extend .row;
+    gap: 0.5ch;
+    // If I use this with .row, then clicking a button causes the whole row to move up/down.
+    align-items: baseline;
+  }
+
+  .problem {
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+  }
+
+  .charlieMatches {
+    margin: 0.25em 0;
+  }
+
+  .comments {
+    width: fit-content;
+    font-size: 0.9em;
+    margin-left: 0;
+    border-left: 0.5em solid rgba(0, 0, 0, 0.0625);
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 0;
+    background-color: rgba(0, 0, 0, 0.0078125);
+  }
+}
+
+@layer utilities {
+  .displayNone {
+    display: none !important;
+  }
+
+  .fontMono {
+    font-family: var(--font-mono) !important;
+  }
+
+  .invisible {
+    width: 0;
+    opacity: 0;
+  }
+}

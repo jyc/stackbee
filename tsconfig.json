@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
+    "lib": ["ESNext", "dom"]
+  },
+  "include": ["src/**/*"]
+}

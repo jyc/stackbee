@@ -1,0 +1,13 @@
+{
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [],
+  "extends": ["eslint:recommended"],
+  "settings": {},
+  "rules": {
+    "no-constant-condition": "off",
+    "no-empty": "off"
+  }
+}

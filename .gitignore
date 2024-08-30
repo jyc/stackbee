@@ -1,0 +1,9 @@
+.DS_Store
+.vscode
+build
+examples
+netlify
+node_modules
+stats.html
+
+config.json

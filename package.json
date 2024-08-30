@@ -1,0 +1,44 @@
+{
+  "name": "stackbee",
+  "version": "0.0.1",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "MINIFY=1 node ./scripts/build.mjs",
+    "tsc": "tsc --noEmit -p .",
+    "format": "pnpx prettier -w .",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "watch": "WATCH=1 node ./scripts/build.mjs",
+    "watch-lint": "pnpm exec chokidar \"src/**/*\" \"test/**/*\" -c \"pwd && pnpm run lint\"",
+    "watch-tsc": "tsc -p . -w --preserveWatchOutput",
+    "verify": "pnpm run tsc && pnpm run lint && pnpx prettier --check .",
+    "visualize-bundle": "pnpx esbuild-visualizer --metadata public/meta.json && open stats.html",
+    "update-dependencies": "pnpx npm-check-updates -u",
+    "write-acknowledgments": "pnpx generate-license-file --overwrite --input package.json --output public/ACKNOWLEDGMENTS.txt",
+    "dev": "WATCH=1 PORT=9876 concurrently --kill-others --prefix-colors 'whiteBright.bgBlue,whiteBright.bgMagenta,bgYellowBright' npm:watch-tsc npm:watch-lint npm:build",
+    "push-to-blog": "IGNORE_CONFIG=1 pnpm run build && pnpm run write-acknowledgments && cp public/embed.{css,html,js} public/ACKNOWLEDGMENTS.txt ../blog/static/stackbee"
+  },
+  "author": "",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "@types/node": "^20.11.25",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.2.2",
+    "dotenv": "^16.4.5",
+    "esbuild": "^0.20.1",
+    "esbuild-sass-plugin": "^3.1.0",
+    "esbuild-visualizer": "^0.6.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "generate-license-file": "^3.0.1",
+    "postcss": "^8.4.35",
+    "postcss-modules": "^6.0.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "typescript-eslint": "^7.1.1"
+  },
+  "dependencies": {
+    "yaml": "^2.5.0"
+  }
+}
